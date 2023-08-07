@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import me.sku.springbootdeveloper.domain.Article;
 import me.sku.springbootdeveloper.dto.AddArticleRequest;
 //import me.sku.springbootdeveloper.dto.UpdateArticleRequest;
+import me.sku.springbootdeveloper.dto.UpdateArticleRequest;
 import me.sku.springbootdeveloper.repository.BlogRepository;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +34,13 @@ public class BlogService {
         blogRepository.deleteById(id);
     }
 
-//    @Transactional
-//    public Article update(long id, UpdateArticleRequest request) {
-//        Article article = blogRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-//
-//        article.update(request.getTitle(), request.getContent());
-//
-//        return article;
-//    }
+    @Transactional
+    public Article update(long id, UpdateArticleRequest request) {
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+
+        article.update(request.getTitle(), request.getContent());
+
+        return article;
+    }
 }
