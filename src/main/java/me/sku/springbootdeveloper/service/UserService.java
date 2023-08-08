@@ -12,12 +12,13 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public Long save(AddUserRequest dto) {// AddUserRequest 객체를 인수로 받는 회원정보 추가 메서드
+    public Long save(AddUserRequest dto) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
         return userRepository.save(User.builder()
                 .email(dto.getEmail())
-                .password(bCryptPasswordEncoder.encode(dto.getPassword()))//패스워드 시큐리티 설정하며 패스워드 인코딩용으로 등록한 빈을 사용해서 암호화한다.
+                .password(encoder.encode(dto.getPassword()))
                 .build()).getId();
     }
 
@@ -27,7 +28,7 @@ public class UserService {
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email)//이메일로 유저찾고 없으면 예외 발생 [이메일이 유일값이기 때문에 가능]
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
 }
