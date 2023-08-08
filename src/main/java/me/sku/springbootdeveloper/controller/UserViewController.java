@@ -8,7 +8,7 @@ public class UserViewController {//뷰파일을 연결하는 컨트롤러
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "oauthLogin";
     }
 
     @GetMapping("/signup")

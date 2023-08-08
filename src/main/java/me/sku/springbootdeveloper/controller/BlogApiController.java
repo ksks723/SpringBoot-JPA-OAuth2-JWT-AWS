@@ -3,8 +3,6 @@ package me.sku.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import me.sku.springbootdeveloper.domain.Article;
 import me.sku.springbootdeveloper.dto.AddArticleRequest;
-//import me.sku.springbootdeveloper.dto.ArticleResponse;
-//import me.sku.springbootdeveloper.dto.UpdateArticleRequest;
 import me.sku.springbootdeveloper.dto.ArticleResponse;
 import me.sku.springbootdeveloper.dto.UpdateArticleRequest;
 import me.sku.springbootdeveloper.service.BlogService;
@@ -12,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,8 +20,8 @@ public class BlogApiController {
     private final BlogService blogService;
 
     @PostMapping("/api/articles")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
-        Article savedArticle = blogService.save(request);
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal) {
+        Article savedArticle = blogService.save(request, principal.getName());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);
@@ -64,3 +63,4 @@ public class BlogApiController {
     }
 
 }
+

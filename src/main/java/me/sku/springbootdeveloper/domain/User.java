@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class User implements UserDetails {//UserDetails 를 상속받아 인증객체로 사용 / 입력정보와, UserDetails 정보를 비교해 실제 인증 처리
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +26,25 @@ public class User implements UserDetails {//UserDetails 를 상속받아 인증�
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "nickname", unique = true)
+    private String nickname;
+
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
+
+    public User update(String nickname) {
+        this.nickname = nickname;
+
+        return this;
+    }
+
 
 
     @Override
