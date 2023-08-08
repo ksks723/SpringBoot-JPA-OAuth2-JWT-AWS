@@ -20,4 +20,9 @@ public class UserService {
                 .password(bCryptPasswordEncoder.encode(dto.getPassword()))//패스워드 시큐리티 설정하며 패스워드 인코딩용으로 등록한 빈을 사용해서 암호화한다.
                 .build()).getId();
     }
+
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
 }
