@@ -22,7 +22,7 @@
 
 ### Spring boot
 
-- JAVA 8
+- JAVA
 - Spring MVC
 - Spring Boot Security
 - Spring Data JPA
